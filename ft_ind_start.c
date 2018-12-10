@@ -19,18 +19,18 @@ int ft_ind_start(char *buf)
     int jmin;
 
     i = 0;
-    imin = 6;
-    jmin = 6;
+    imin = 5;
+    jmin = 5;
     while (buf[i])
     {
         if (buf[i] == '#')
         {
-            if (i / 5 < imin)
-                imin = i / 5;
-            if (i % 5 < jmin)
-                jmin = i % 5;
+            if (i / 4 < imin)
+                imin = i / 4;
+            if (i % 4 < jmin)
+                jmin = i % 4;
         }
         i++;
     }
-    return(imin * 5 + jmin);
+    return(imin * 4 + jmin);
 }

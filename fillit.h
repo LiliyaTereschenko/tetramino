@@ -23,9 +23,10 @@ char    *ft_read_map(char *file_name);
 int     ft_map_size(char *s);
 int     ft_map_count(char *s);
 void    ft_solve(char *s);
-t_list  *ft_create_list(char *buf, int map_size);
+t_list  *ft_create_list(char *buf, int map_size, int start);
 int     ft_ind_start(char *buf);
 int     ft_ind_end(char *buf);
+int     ft_algorithm(t_list *matrix, t_list **res);
 
 #include <stdio.h> //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

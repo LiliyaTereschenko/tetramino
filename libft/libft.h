@@ -91,5 +91,6 @@ int					ft_sqrt(int nb);
 int					ft_power(int nb, int p);
 void				ft_lst_push_back(t_list **begin_list, t_list *new);
 t_list				*ft_lst_at(t_list *begin_list, unsigned int nbr);
+int					ft_lst_size(t_list *begin_list);
 
 #endif

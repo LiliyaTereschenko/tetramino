@@ -25,12 +25,12 @@ int ft_ind_end(char *buf)
     {
         if (buf[i] == '#')
         {
-            if (i / 5 > imax)
-                imax = i / 5;
-            if (i % 5 > jmax)
-                jmax = i % 5;
+            if (i / 4 > imax)
+                imax = i / 4;
+            if (i % 4 > jmax)
+                jmax = i % 4;
         }
         i++;
     }
-    return(imax * 5 + jmax);
+    return(imax * 4 + jmax);
 }
