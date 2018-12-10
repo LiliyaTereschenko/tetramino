@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_map_size.c                                      :+:      :+:    :+:   */
+/*   ft_map_count.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kkihn <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 16:17:06 by kkihn             #+#    #+#             */
-/*   Updated: 2018/12/07 16:17:07 by kkihn            ###   ########.fr       */
+/*   Created: 2018/12/10 13:51:13 by kkihn             #+#    #+#             */
+/*   Updated: 2018/12/10 13:51:15 by kkihn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int     ft_map_size(char *s)
+int ft_map_count(char *s)
 {
-    int    i;
-    int map_count;
-
-    i = 1;
-    map_count = ft_map_count(s);
-    while (i * i < map_count * 4)
-        i++;
-    return (i);
+    return ((ft_strlen(s) + 1) / 21);
 }

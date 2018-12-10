@@ -13,18 +13,21 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 
-# include "../libft/libft.h"
+# include "libft/libft.h"
 # include <fcntl.h>
 # define BUFF_SIZE 21
 
 void    ft_usage(void);
 void    ft_error(void);
 char    *ft_read_map(char *file_name);
-int     ft_map_size(int map_count);
+int     ft_map_size(char *s);
+int     ft_map_count(char *s);
 void    ft_solve(char *s);
+t_list  *ft_create_list(char *buf, int map_size);
+int     ft_ind_start(char *buf);
+int     ft_ind_end(char *buf);
 
-
-#include <stdio.h>
+#include <stdio.h> //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 #endif

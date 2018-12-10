@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_map_size.c                                      :+:      :+:    :+:   */
+/*   ft_lst_at.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kkihn <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 16:17:06 by kkihn             #+#    #+#             */
-/*   Updated: 2018/12/07 16:17:07 by kkihn            ###   ########.fr       */
+/*   Created: 2018/12/10 12:50:49 by kkihn             #+#    #+#             */
+/*   Updated: 2018/12/10 12:51:02 by kkihn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-int     ft_map_size(char *s)
+t_list	*ft_lst_at(t_list *begin_list, unsigned int nbr)
 {
-    int    i;
-    int map_count;
+	unsigned int k;
 
-    i = 1;
-    map_count = ft_map_count(s);
-    while (i * i < map_count * 4)
-        i++;
-    return (i);
+	k = 0;
+	if (!begin_list)
+		return (NULL);
+	while (k < nbr && begin_list)
+	{
+		begin_list = begin_list->next;
+		k++;
+	}
+	if (k < nbr)
+		return (NULL);
+	else
+		return (begin_list);
 }

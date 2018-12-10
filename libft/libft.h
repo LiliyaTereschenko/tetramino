@@ -89,4 +89,7 @@ int					match(char *s1, char *s2);
 void				ft_sort_integer_tab(int *tab, int size);
 int					ft_sqrt(int nb);
 int					ft_power(int nb, int p);
+void				ft_lst_push_back(t_list **begin_list, t_list *new);
+t_list				*ft_lst_at(t_list *begin_list, unsigned int nbr);
+
 #endif

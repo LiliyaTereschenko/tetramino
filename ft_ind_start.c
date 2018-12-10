@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_map_size.c                                      :+:      :+:    :+:   */
+/*   ft_ind_start.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kkihn <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 16:17:06 by kkihn             #+#    #+#             */
-/*   Updated: 2018/12/07 16:17:07 by kkihn            ###   ########.fr       */
+/*   Created: 2018/12/10 14:00:05 by kkihn             #+#    #+#             */
+/*   Updated: 2018/12/10 14:00:06 by kkihn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int     ft_map_size(char *s)
+int ft_ind_start(char *buf)
 {
-    int    i;
-    int map_count;
+    int i;
+    int imin;
+    int jmin;
 
-    i = 1;
-    map_count = ft_map_count(s);
-    while (i * i < map_count * 4)
+    i = 0;
+    imin = 6;
+    jmin = 6;
+    while (buf[i])
+    {
+        if (buf[i] == '#')
+        {
+            if (i / 5 < imin)
+                imin = i / 5;
+            if (i % 5 < jmin)
+                jmin = i % 5;
+        }
         i++;
-    return (i);
+    }
+    return(imin * 5 + jmin);
 }
