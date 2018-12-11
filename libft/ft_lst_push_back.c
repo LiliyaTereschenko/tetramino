@@ -17,11 +17,11 @@ void	ft_lst_push_back(t_list **begin_list, t_list *new)
 	t_list *current;
 
 	current = *begin_list;
-	if (current == 0)
+	if (!current)
 		*begin_list = new;
 	else
 	{
-		while (current->next != 0)
+		while (current->next)
 			current = current->next;
 		current->next = new;
 	}

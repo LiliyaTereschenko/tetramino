@@ -6,18 +6,18 @@
 /*   By: kkihn <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 12:47:52 by kkihn             #+#    #+#             */
-/*   Updated: 2018/12/07 12:48:06 by kkihn            ###   ########.fr       */
+/*   Updated: 2018/12/10 19:22:31 by kkihn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void    ft_usage(void)
+void	ft_usage(void)
 {
-    ft_putstr("usage: ./fillit file_name\n");
+	ft_putstr("usage: ./fillit file_name\n");
 }
 
-void    ft_error(void)
+void	ft_error(void)
 {
-    ft_putstr("error\n");
+	ft_putstr("error\n");
 }

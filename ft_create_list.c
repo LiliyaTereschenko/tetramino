@@ -6,7 +6,7 @@
 /*   By: kkihn <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:52:03 by kkihn             #+#    #+#             */
-/*   Updated: 2018/12/07 15:52:08 by kkihn            ###   ########.fr       */
+/*   Updated: 2018/12/10 19:47:30 by kkihn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,40 +21,57 @@
 	}
 }*/
 
-t_list     *ft_create_list(char *buf, int map_size, int start)
+t_list	*ft_create_list(char *buf, int map_size, int start)
 {
-    t_list  *beg;
-    t_list *l;
-    int     i;
-    int n;
+	t_list	*beg;
+	t_list	*l;
+	int		i;
+	int		n;
 
-    i = 0;
-    beg = NULL;
-    n = 0;
-    while (i < map_size * map_size)
-    {
-        l = ft_lstnew(&n, sizeof(int));
-        ft_lst_push_back(&beg, l);
-        i++;
-    }
-    i = 0;
+	i = 0;
+	beg = NULL;
+	n = 0;
+	while (i < map_size * map_size)
+	{
+		l = ft_lstnew(&n, sizeof(int));
+		ft_lst_push_back(&beg, l);
+		i++;
+	}
+	i = 0;
     //printf("letter: %c\n", (char)l->content_size);
     //printFromHead(beg);
     //printf("start: %d\n", start);
-    while (buf[i])
-    {
-        //printf(">%s\n", buf);
-        *((int *)l->content_size) = i;
-        if (buf[i] == '#')
-        {
-            //printf ("i = %d, start = %d\n", i, start);
-            l = ft_lst_at(beg, (unsigned int)(i - ft_ind_start(buf) + start));
-            *((int *)l->content) = 1;
-        }
-        i++;
-    }
+	while (buf[i])
+	{
+    	//printf(">%s\n", buf);
+		l->content_size = (size_t)i;
+		
+		//printf("buf[i] = %c\n", buf[i]);
+		if (buf[i] == '#')
+		{
+			if (map_size < 4)
+			{
+				printf ("i (%d) - ft_ind_start (%d) + start (%d) = %d\n", i, ft_ind_start(buf), start, i - ft_ind_start(buf) + start);
+				l = ft_lst_at(beg, (unsigned int)(i - ft_ind_start(buf) + start - i / 4));
+			}
+			else if (map_size == 4) 
+			{
+				printf ("i (%d) - ft_ind_start (%d) + start (%d) = %d\n", i, ft_ind_start(buf), start, i - ft_ind_start(buf) + start);
+				l = ft_lst_at(beg, (unsigned int)(i - ft_ind_start(buf) + start));
+			}
+			else if (map_size > 4) 
+			{
+				printf ("i (%d) - ft_ind_start (%d) + start (%d) = %d\n", i, ft_ind_start(buf), start, i - ft_ind_start(buf) + start);
+				l = ft_lst_at(beg, (unsigned int)(i - ft_ind_start(buf) + start + i / 4));
+			}
+			*((int *)l->content) = 1;
+			
+			
+		}
+		i++;
+	}
     //printf("ORIGIN LIST\n");
     //printFromHead(beg);
     //printf("\n===========================================\n");
-    return (beg);
+	return (beg);
 }

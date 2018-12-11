@@ -6,13 +6,13 @@
 /*   By: kkihn <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 13:51:13 by kkihn             #+#    #+#             */
-/*   Updated: 2018/12/10 13:51:15 by kkihn            ###   ########.fr       */
+/*   Updated: 2018/12/10 19:40:12 by kkihn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int ft_map_count(char *s)
+int	ft_map_count(char *s)
 {
-    return ((ft_strlen(s) + 1) / 21);
+	return ((ft_strlen(s) + 1) / 21);
 }

@@ -6,19 +6,39 @@
 /*   By: kkihn <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 12:42:20 by kkihn             #+#    #+#             */
-/*   Updated: 2018/12/07 12:42:22 by kkihn            ###   ########.fr       */
+/*   Updated: 2018/12/10 19:21:28 by kkihn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int main(int argc, char **argv)
+void printFromHead(t_list *list) 
 {
-    char *s;
+	if (list)
+	{
+		printf("%d ", *((int *)list->content));
+		printFromHead(list->next);
+	}
+	else
+		printf("\n");
+}
 
-    if (argc == 2)
-        ((s = ft_read_map(argv[1]))) ? ft_solve(s) : ft_error();
-    else 
-        ft_usage();
-    return (0);
+int	main(int argc, char **argv)
+{
+	char *s;
+	int map_count;
+
+	if (argc == 2)
+	{
+		if ((s = ft_read_map(argv[1])))
+		{
+			map_count = ft_map_count(s);
+			(map_count < 1 || map_count > 27) ? ft_error() : ft_solve(s, map_count);
+		}
+		else 
+			ft_error();
+	}
+	else
+		ft_usage();
+	return (0);
 }
