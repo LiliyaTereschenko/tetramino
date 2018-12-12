@@ -12,28 +12,19 @@
 
 #include "fillit.h"
 
-/*static void printFromHead(t_list *list) 
-{
-	if (list)
-	{
-		printf("%d ", *((int *)list->content));
-		printFromHead(list->next);
-	}
-}*/
-
 t_list	*ft_create_list(char *buf, int map_size, int start)
 {
 	t_list	*beg;
 	t_list	*l;
 	int		i;
-	int		n;
+	char		n;
 
 	i = 0;
 	beg = NULL;
 	n = 0;
 	while (i < map_size * map_size)
 	{
-		l = ft_lstnew(&n, sizeof(int));
+		l = ft_lstnew(&n, sizeof(char));
 		ft_lst_push_back(&beg, l);
 		i++;
 	}
@@ -49,22 +40,9 @@ t_list	*ft_create_list(char *buf, int map_size, int start)
 		//printf("buf[i] = %c\n", buf[i]);
 		if (buf[i] == '#')
 		{
-			if (map_size < 4)
-			{
-				printf ("i (%d) - ft_ind_start (%d) + start (%d) = %d\n", i, ft_ind_start(buf), start, i - ft_ind_start(buf) + start);
-				l = ft_lst_at(beg, (unsigned int)(i - ft_ind_start(buf) + start - i / 4));
-			}
-			else if (map_size == 4) 
-			{
-				printf ("i (%d) - ft_ind_start (%d) + start (%d) = %d\n", i, ft_ind_start(buf), start, i - ft_ind_start(buf) + start);
-				l = ft_lst_at(beg, (unsigned int)(i - ft_ind_start(buf) + start));
-			}
-			else if (map_size > 4) 
-			{
-				printf ("i (%d) - ft_ind_start (%d) + start (%d) = %d\n", i, ft_ind_start(buf), start, i - ft_ind_start(buf) + start);
-				l = ft_lst_at(beg, (unsigned int)(i - ft_ind_start(buf) + start + i / 4));
-			}
-			*((int *)l->content) = 1;
+			//printf ("%d\n", i - ft_ind_start(buf) + start + i / 4 * (map_size - 4));
+			l = ft_lst_at(beg, (unsigned int)(i - ft_ind_start(buf) + start + (i - ft_ind_start(buf)) / 4 * (map_size - 4)));
+			*((char *)l->content) = 1;
 			
 			
 		}

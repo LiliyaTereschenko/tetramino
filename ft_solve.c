@@ -46,33 +46,37 @@ static int		ft_pos_count(char *buf, int map_size)
 
 	start = ft_ind_start(buf);
 	end = ft_ind_end(buf);
-	printf("BUF: %s\n", buf);
-	width = end % map_size - start % map_size + 1;
-	height = end / map_size - start / map_size + 1;
+	//printf("BUF: %s\n", buf);
+	//printf("start = %d, end = %d\n", start, end);
+	width = end % 4 - start % 4 + 1;
+	height = end / 4 - start / 4 + 1;
+	//printf("width = %d, height = %d\n", width, height);
 	return ((map_size - width + 1) * (map_size - height + 1));
 }
 
-static void		ft_create_pose(t_list **matrix, char *buf, int map_size, char letter)
+static int		ft_create_pose(t_list **matrix, char *buf, int map_size, char letter)
 {
-    t_list	*l;
     t_list	*l_matrix;
-    int		i;
     int		pos_count;
     int		start;
     int		end;
     int		tmp;
 
-	end = ft_ind_end(buf) - ft_ind_start(buf);
+	
+	start = ft_ind_start(buf);
+	end = ft_ind_end(buf);
+	end = end - start + (end - start) / 4 * (map_size - 4);
 	start = 0;
-	i = 0;
 	pos_count = ft_pos_count(buf, map_size);
-	while (i < pos_count)
+	//printf("<<<<<<<<<<<<< %d\n", pos_count);
+	if (pos_count <= 0)
+		return (0);
+	while (pos_count > 0)
 	{
-		l = ft_create_list(buf, map_size, start);
-		l_matrix = ft_lstnew(l, sizeof(t_list));
+		l_matrix = ft_lstnew(ft_create_list(buf, map_size, start), sizeof(t_list));
 		ft_lst_push_back(matrix, l_matrix);
 		l_matrix->content_size = (size_t)letter;
-		i++;
+		pos_count--;
 		if (end % map_size == map_size - 1)
 		{
 			tmp = end % map_size - start % map_size + 1;
@@ -85,9 +89,10 @@ static void		ft_create_pose(t_list **matrix, char *buf, int map_size, char lette
 			end++;
 		}
 	}
+	return (1);
 }
 
-static int    ft_solve_map_size(char *s, int map_count, t_list *res, int map_size)
+static int    ft_solve_map_size(char *s, int map_count, t_list **res, int map_size)
 {
 	t_list	*matrix;
 	int		i;
@@ -97,18 +102,33 @@ static int    ft_solve_map_size(char *s, int map_count, t_list *res, int map_siz
 	letter = 'A';
 	i = 0;
 	matrix = NULL;
+	printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>      map size = %d\n", map_size);
 	while (i < map_count)
 	{
 		buf = ft_drop_n(s);
 		//printf("BUF: %s\n", buf);
 		s += 21;
-		ft_create_pose(&matrix, buf, map_size, letter);
+		if (!ft_create_pose(&matrix, buf, map_size, letter))
+			return (0);
 		free(buf);
 		letter++;
 		i++;
 	}
+	if (!matrix)
+		printf("NULL MATRIX\n");
+	t_list *l = matrix;
+    while(l)
+    {
+        ft_putstr("> ");
+        printFromHead(l->content);
+        l = l->next;
+    }
 	if (ft_algorithm(matrix, res))
 		return (1);
+	//printf("=========================\n");
+	//while (matrix)
+		//ft_lst_del_last(&matrix);
+	//matrix = NULL;
 	return (0);
 }
 
@@ -120,12 +140,19 @@ void	ft_solve(char *s, int map_count)
 
 	map_size = ft_map_size(s);
 	res = NULL;
-	while (!ft_solve_map_size(s, map_count, res, map_size))
+	//int r = ft_solve_map_size(s, map_count, &res, map_size);
+	//printf("V ITOGE == %d\n", r);
+	while (!ft_solve_map_size(s, map_count, &res, map_size))
+	{
+		printf("MAP_SIZE++;\n");
 		map_size++;
+	}
 	letter = 'A';
 	if (!res)
 		printf("\nRES = NULL\n");
 	else
+	{
+		printf("\n====== RESULT =====\n");
 		while(res)
 		{
 			printf("%c:\n", letter);
@@ -133,4 +160,5 @@ void	ft_solve(char *s, int map_count)
 			printFromHead(res->content);
 			res = res->next;
 		}
+	}
 }

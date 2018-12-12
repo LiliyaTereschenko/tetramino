@@ -16,7 +16,10 @@ void printFromHead(t_list *list)
 {
 	if (list)
 	{
-		printf("%d ", *((int *)list->content));
+		ft_putnbr(*((int *)list->content));
+		if (!(list->content))
+			printf("LIST CONTENT = NULL\n");
+		ft_putstr(" ");
 		printFromHead(list->next);
 	}
 	else

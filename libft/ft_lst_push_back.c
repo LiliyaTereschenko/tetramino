@@ -18,11 +18,15 @@ void	ft_lst_push_back(t_list **begin_list, t_list *new)
 
 	current = *begin_list;
 	if (!current)
+	{
 		*begin_list = new;
+		(*begin_list)->next = NULL;
+	}
 	else
 	{
 		while (current->next)
 			current = current->next;
 		current->next = new;
+		new->next = NULL;
 	}
 }

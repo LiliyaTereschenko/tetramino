@@ -63,57 +63,116 @@ static int		ft_tetr_check(t_list *res, t_list *content_from_matrix)
     t_list *l1;
     t_list *l2;
 
-    //printf("%p > %p\n", res, res->content);
-    //printf("FT_TETR_CHECK: %p\n", res);
+   // printf("%p > %p\n", res, res->content);
+    printf("FT_TETR_CHECK: %p\n", res);
     while (res)
     {
+        //printf("%p > %p\n", res, res->content);
+        //printFromHead(res->content);
         l1 = res->content;
         l2 = content_from_matrix;
-        printf("RES: \n");
-        printFromHead(res->content);
-        printf("CONTENT FROM MATRIX: \n");
-        printFromHead(l2);
+        //printf("RES: \n");
+        //printFromHead(res->content);
+        //printf("CONTENT FROM MATRIX: \n");
+        //printFromHead(l2);
         while (l1 && l2)
         {
+            printf("=======================\n");
             //printf("l1 = %d, l2 = %d\n", *((int *)l1->content), *((int *)l2->content));
-            if (*((int *)l1->content) + *((int *)l2->content) == 2)
+            if (*((char *)l1->content) + *((char *)l2->content) == 2)
+            {
+                 printf("END OF FT_TETR_CHECK\n");
                 return (0);
+            }
+                
             l1 = l1->next;
             l2 = l2->next;
         }
         res = res->next;
     }
-    //printf("END OF FT_TETR_CHECK\n");
+    printf("END OF FT_TETR_CHECK\n");
 	return (1);
 }
 
-int    ft_algorithm(t_list *matrix, t_list *res)
+int    ft_algorithm(t_list *matrix, t_list **res)
 {
     t_list *i;
     t_list *j;
+    // int *dump;
+    // int dump1 = 0;
 
     i = matrix;
-    for (int ind = 0; ind < 50; ind++)
+    while (i)
     {
-        printf ("%c:\n", (char)i->content_size);
-        //printFromHead(i->content);
-        int check = ft_tetr_check(res, i->content);
-        printf("CHECK = %d\n", check);
-        printf("\n\n");
+        //printf ("%c:\n", (char)i->content_size);
+        t_list *l;
+        l = i->content;
+        /*if (l)
+            printf("L != NULL\n");
+        else
+            printf("L = NULL\n");*/
+        // while (l)
+        // {
+        //     printf(">>>\n");
+        //     if (l->content)
+        //         printf("L CONTENT != NULL\n");
+        //     else
+        //         printf("L CONTENT == NULL\n");
+        //     printf("%p > \n", l->content);
+        //     dump = (int *)(l->content);
+        //     ft_putstr("1\n");
+        //     if (dump || dump[0])
+        //     {
+        //         ft_putstr("11111\n");
+        //         dump1 = dump[0];
+        //         ft_putstr("22222\n");
+        //     }
+        //     else
+        //         printf("NULLLLLLLLLLL\n");
+        //     ft_putstr("2\n");
+        //     if (dump1)
+        //         printf("%d", dump1);
+        //     else
+        //         printf("NULLLLLLLLLLL1\n");
+        //     ft_putstr("3\n");
+        //     ft_putstr("==================================== ");
+        //     l = l->next;
+        // }
+        // printf("=======================\n");
+        int check = ft_tetr_check(*res, i->content);
+        //printf("CHECK = %d\n\n", check);
+        //printf("\n\n");
         if (check)
         {
-            j = i->content;
-            ft_lst_push_back(&res, ft_lstnew(i->content, sizeof(t_list)));
+            j = i;
+            ft_lst_push_back(res, ft_lstnew(i->content, sizeof(t_list)));
             while (i->next && i->content_size == i->next->content_size)
-                i = i->next;  
-            if (ft_algorithm(i->next, res))
+                i = i->next;
+            if (!(i->next) || ft_algorithm(i->next, res))
                 return (1);
+            /*printf("\n====== RESULT =====\n");
+            t_list *l = *res;
+            while(l)
+            {
+                ft_putstr("> ");
+                printFromHead(l->content);
+                l = l->next;
+            }*/
+            //printf("=============== CLEAR ============\n");
+            ft_lst_del_last(res);
+            //printf("============ END CLEAR ===========\n");
             i = j->next;
+            if (!i || i->content_size != j->content_size)
+                return (0);
+            //printf(">>>>>>>>>>>>>>>>>>>>>>>> %c\n", (char)i->content_size);
+            //printFromHead(i->content);
         }
         else if (i->next && i->content_size == i->next->content_size)
+        {
             i = i->next;
+        }
         else 
             return (0);
     }
-    return (1);
+    return (0);
 }
